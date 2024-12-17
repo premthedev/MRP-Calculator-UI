@@ -1,0 +1,44 @@
+<!-- results.component.html -->
+<div class="results-container">
+  <div *ngIf="isLoading" class="loading-spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <div *ngIf="!isLoading" class="results-content">
+    <h1>MRP Results for {{ itemName }} ({{ quantity }} units)</h1>
+    
+    <div class="table-container">
+      <table mat-table [dataSource]="results" class="mat-elevation-z8">
+        <ng-container matColumnDef="level">
+          <th mat-header-cell *matHeaderCellDef>Level</th>
+          <td mat-cell *matCellDef="let element">
+            {{getIndentation(element.level)}}{{element.part}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="part">
+          <th mat-header-cell *matHeaderCellDef>Part</th>
+          <td mat-cell *matCellDef="let element">{{element.part}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="requiredQty">
+          <th mat-header-cell *matHeaderCellDef>Required Qty</th>
+          <td mat-cell *matCellDef="let element">{{element.requiredQty}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="onHandInventory">
+          <th mat-header-cell *matHeaderCellDef>On Hand Inventory</th>
+          <td mat-cell *matCellDef="let element">{{element.onHandInventory}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="toBeProcured">
+          <th mat-header-cell *matHeaderCellDef>To Be Procured</th>
+          <td mat-cell *matCellDef="let element">{{element.toBeProcured}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </div>
+</div>
